@@ -1,41 +1,25 @@
-syntax ="proto3";
+syntax = "proto3";
 
+service machineLearning {
 
-service ML{
+  rpc PredictWithDataset(stream DatasetParameters) returns (PredictResults) {}
+  rpc TrainWithDataset(stream DatasetParameters) returns (TrainResults) {}
 
-    rpc PredictWithDataset (stream DatasetParameters) returns (PredictResults){}
-    rpc TrainWithDataset (stream DatasetParameters) returns (TrainResults){}
-
-    rpc Predict (Parameters) returns (PredictResults) {}
-    rpc Train (Parameters) returns (TrainResults){}
+  rpc Predict(Parameters) returns (PredictResults) {}
+  rpc Train(Parameters) returns (TrainResults) {}
 }
 
-message DatasetParameters{}
-message PredictResults{}
-message Parameters{}
-message TrainResults{}
+message DatasetParameters {}
+message PredictResults {}
+message Parameters {}
+message TrainResults {}
 
-service FileTranfer{
+service Dataset {
 
-    rpc UploadStream(stream FileStream) returns (ResponseFile) {}
-    rpc DownloadStream(RequestFile) returns (stream FileStream) {}
-
-    rpc Upload(File) returns (ResponseFile) {}
-    rpc Download(RequestFile) returns (File) {}
-
+  rpc RemoveNaN(FileName) returns (Response) {}
+  rpc Standardize(Standardization_Method) returns (Response) {}
 }
 
-message FileStream{}
-message RequestFile{}
-message File{}
-message ResponseFile{}
-
-service Dataset{
-
-    rpc RemoveNaN (FileName) returns (Response){}
-    rpc Standardize (Standardization_Method) returns (Response){}
-}
-
-message FileName{}
-message Standardization_Method{}
-message Response{}
+message FileName {}
+message Standardization_Method {}
+message Response {}

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+// Services used to transfer datasets for storage and use in machine learning
+service FileTranfer {
+
+  // Uploads dataset using client streaming grpc, responds with the file name
+  // and the result of the storing operation
+  rpc UploadStream(stream FileStream) returns (ResponseFile) {}
+
+  // Downloads datasets in CSV format from the server using server side
+  // streaming grpc
+  rpc DownloadStream(RequestFile) returns (stream FileStream) {}
+
+  // Upload file using unary grpc for files smaller than 4mb.
+  rpc Upload(File) returns (ResponseFile) {}
+
+  // Upload file using unary grpc for files smaller than 4mb
+  rpc Download(RequestFile) returns (File) {}
+}
+
+// Message used to stream files between client and server
+message FileStream {
+
+  // Streams files in chunks, assemble and disassembly at client or server side
+  bytes fileChunk = 1;
+}
+
+// Message to request file by name
+message RequestFile {
+
+  // File Name
+  string fileName = 1;
+}
+
+// Message that sends files in unary grpc calls
+message File {
+
+  // Files are converted into bytes to be sent and then converted again
+  bytes file = 1;
+}
+
+// Response message when file is received
+message ResponseFile {
+
+  // Sends file name and the result of the storing operation
+  string fileName = 1;
+  string result = 2;
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+service Help {
+
+  rpc GetMenuHelp() returns (MainHelpResponse) {}
+  rpc SpecificHelp(HelpRequest) returns (HelpResponse) {}
+}
+
+message MainHelpResponse {}
+message HelpRequest {}
+message HelpResponse {}
