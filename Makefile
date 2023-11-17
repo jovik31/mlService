@@ -3,8 +3,10 @@ run:
 
 
 gen:
-	python3 -m grpc_tools.protoc --proto_path=. proto/file_service.proto --python_out=./proto/python --go_out=./proto/go --grpc_python_out=./proto/python --go-grpc_out=./proto/go
-
+	python3 -m grpc_tools.protoc --proto_path=./proto/ --python_out=./proto/python_grpc --go_out=./proto --grpc_python_out=./proto/python_grpc --go-grpc_out=./proto proto/file_service.proto
 
 clean:
-	rm proto/python/proto/*.py proto/go/proto/*go
+	rm proto/python_grpc/*.py proto/go_grpc/*go
+	touch proto/python_grpc/__init__.py
+set-env:
+	export PYTHONPATH=~/Projects/pyProjects/mlService/

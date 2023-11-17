@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./proto";
+option go_package = "./go_grpc";
 
 // Services used to transfer datasets for storage and use in machine learning
 service FileTranfer {
@@ -39,6 +39,7 @@ message File {
 
   // Files are converted into bytes to be sent and then converted again
   bytes file = 1;
+  string filename = 2;
 }
 
 // Response message when file is received
