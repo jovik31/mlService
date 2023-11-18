@@ -29,6 +29,9 @@ class File_Transfer(file_service.FileTranferServicer):
         pass
 
     def Upload(self, request, context):
+        file = request.file
+        print(file)
+        return file_message.ResponseFile(fileName="qwerty.csv", result="ok")
 
         pass
 
