@@ -29,7 +29,7 @@ class File_Transfer(file_service.FileTranferServicer):
             uploaded_file += requests.file
 
         print(uploaded_file.decode("utf-8"))
-        return file_message.Response(fileName="eeee.csv", result="ok")
+        return file_message.Response(fileName="test.csv", result="ok")
 
 
 file_server()
