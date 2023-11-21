@@ -15,24 +15,14 @@ class FileTranferStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.UploadStream = channel.stream_unary(
-            '/FileTranfer/UploadStream',
-            request_serializer=file__service__pb2.FileStream.SerializeToString,
-            response_deserializer=file__service__pb2.ResponseFile.FromString,
-        )
-        self.DownloadStream = channel.unary_stream(
-            '/FileTranfer/DownloadStream',
-            request_serializer=file__service__pb2.RequestFile.SerializeToString,
-            response_deserializer=file__service__pb2.FileStream.FromString,
-        )
-        self.Upload = channel.unary_unary(
+        self.Upload = channel.stream_unary(
             '/FileTranfer/Upload',
             request_serializer=file__service__pb2.File.SerializeToString,
-            response_deserializer=file__service__pb2.ResponseFile.FromString,
+            response_deserializer=file__service__pb2.Response.FromString,
         )
-        self.Download = channel.unary_unary(
+        self.Download = channel.unary_stream(
             '/FileTranfer/Download',
-            request_serializer=file__service__pb2.RequestFile.SerializeToString,
+            request_serializer=file__service__pb2.Request.SerializeToString,
             response_deserializer=file__service__pb2.File.FromString,
         )
 
@@ -41,23 +31,7 @@ class FileTranferServicer(object):
     """Services used to transfer datasets for storage and use in machine learning
     """
 
-    def UploadStream(self, request_iterator, context):
-        """Uploads dataset using client streaming grpc, responds with the file name
-        and the result of the storing operation
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DownloadStream(self, request, context):
-        """Downloads datasets in CSV format from the server using server side
-        streaming grpc
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Upload(self, request, context):
+    def Upload(self, request_iterator, context):
         """Upload file using unary grpc for files smaller than 4mb.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -74,24 +48,14 @@ class FileTranferServicer(object):
 
 def add_FileTranferServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'UploadStream': grpc.stream_unary_rpc_method_handler(
-            servicer.UploadStream,
-            request_deserializer=file__service__pb2.FileStream.FromString,
-            response_serializer=file__service__pb2.ResponseFile.SerializeToString,
-        ),
-        'DownloadStream': grpc.unary_stream_rpc_method_handler(
-            servicer.DownloadStream,
-            request_deserializer=file__service__pb2.RequestFile.FromString,
-            response_serializer=file__service__pb2.FileStream.SerializeToString,
-        ),
-        'Upload': grpc.unary_unary_rpc_method_handler(
+        'Upload': grpc.stream_unary_rpc_method_handler(
             servicer.Upload,
             request_deserializer=file__service__pb2.File.FromString,
-            response_serializer=file__service__pb2.ResponseFile.SerializeToString,
+            response_serializer=file__service__pb2.Response.SerializeToString,
         ),
-        'Download': grpc.unary_unary_rpc_method_handler(
+        'Download': grpc.unary_stream_rpc_method_handler(
             servicer.Download,
-            request_deserializer=file__service__pb2.RequestFile.FromString,
+            request_deserializer=file__service__pb2.Request.FromString,
             response_serializer=file__service__pb2.File.SerializeToString,
         ),
     }
@@ -107,41 +71,7 @@ class FileTranfer(object):
     """
 
     @staticmethod
-    def UploadStream(request_iterator,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/FileTranfer/UploadStream',
-                                              file__service__pb2.FileStream.SerializeToString,
-                                              file__service__pb2.ResponseFile.FromString,
-                                              options, channel_credentials,
-                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def DownloadStream(request,
-                       target,
-                       options=(),
-                       channel_credentials=None,
-                       call_credentials=None,
-                       insecure=False,
-                       compression=None,
-                       wait_for_ready=None,
-                       timeout=None,
-                       metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/FileTranfer/DownloadStream',
-                                              file__service__pb2.RequestFile.SerializeToString,
-                                              file__service__pb2.FileStream.FromString,
-                                              options, channel_credentials,
-                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def Upload(request,
+    def Upload(request_iterator,
                target,
                options=(),
                channel_credentials=None,
@@ -151,11 +81,11 @@ class FileTranfer(object):
                wait_for_ready=None,
                timeout=None,
                metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/FileTranfer/Upload',
-                                             file__service__pb2.File.SerializeToString,
-                                             file__service__pb2.ResponseFile.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+        return grpc.experimental.stream_unary(request_iterator, target, '/FileTranfer/Upload',
+                                              file__service__pb2.File.SerializeToString,
+                                              file__service__pb2.Response.FromString,
+                                              options, channel_credentials,
+                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Download(request,
@@ -168,8 +98,8 @@ class FileTranfer(object):
                  wait_for_ready=None,
                  timeout=None,
                  metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/FileTranfer/Download',
-                                             file__service__pb2.RequestFile.SerializeToString,
-                                             file__service__pb2.File.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+        return grpc.experimental.unary_stream(request, target, '/FileTranfer/Download',
+                                              file__service__pb2.Request.SerializeToString,
+                                              file__service__pb2.File.FromString,
+                                              options, channel_credentials,
+                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

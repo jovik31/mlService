@@ -2,15 +2,7 @@ from proto.python_grpc import file_service_pb2_grpc as file_service
 from proto.python_grpc import file_service_pb2 as file_message
 import grpc
 import concurrent.futures as future
-
-
-def get_file_bytes(filename):
-    file = open(filename, 'rb')
-    byteFile = file.read()
-    return byteFile
-
-
-def save_file(filename):
+from cmd.internal import utils
 
 
 def file_server():
@@ -26,20 +18,18 @@ class File_Transfer(file_service.FileTranferServicer):
     def Download(self, request, context):
         fileN = request.fileName
         print("Got request for file" + str(request.fileName))
-        return file_message.File(file=get_file_bytes(request.fileName), filename=fileN)
+        return utils.chunk_file(fileN, 4000000)
 
-    def DownloadStreamm(self, request_iterator, context):
-        pass
+    def Upload(self, request_iterator, context):
 
-    def Upload(self, request, context):
-        file = request.file
-        print(file)
-        return file_message.ResponseFile(fileName="qwerty.csv", result="ok")
+        print("got to server")
 
-        pass
+        uploaded_file = bytes()
+        for requests in request_iterator:
+            uploaded_file += requests.file
 
-    def UploadStream(self, request_iterator, context):
-        pass
+        print(uploaded_file.decode("utf-8"))
+        return file_message.Response(fileName="eeee.csv", result="ok")
 
 
 file_server()

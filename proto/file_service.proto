@@ -5,30 +5,15 @@ option go_package = "./go_grpc";
 // Services used to transfer datasets for storage and use in machine learning
 service FileTranfer {
 
-  // Uploads dataset using client streaming grpc, responds with the file name
-  // and the result of the storing operation
-  rpc UploadStream(stream FileStream) returns (ResponseFile) {}
-
-  // Downloads datasets in CSV format from the server using server side
-  // streaming grpc
-  rpc DownloadStream(RequestFile) returns (stream FileStream) {}
-
   // Upload file using unary grpc for files smaller than 4mb.
-  rpc Upload(File) returns (ResponseFile) {}
+  rpc Upload(stream File) returns (Response) {}
 
   // Upload file using unary grpc for files smaller than 4mb
-  rpc Download(RequestFile) returns (File) {}
-}
-
-// Message used to stream files between client and server
-message FileStream {
-
-  // Streams files in chunks, assemble and disassembly at client or server side
-  bytes fileChunk = 1;
+  rpc Download(Request) returns (stream File) {}
 }
 
 // Message to request file by name
-message RequestFile {
+message Request {
 
   // File Name
   string fileName = 1;
@@ -43,7 +28,7 @@ message File {
 }
 
 // Response message when file is received
-message ResponseFile {
+message Response {
 
   // Sends file name and the result of the storing operation
   string fileName = 1;

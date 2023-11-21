@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x66ile_service.proto\"\x1f\n\nFileStream\x12\x11\n\tfileChunk\x18\x01 \x01(\x0c\"\x1f\n\x0bRequestFile\x12\x10\n\x08\x66ileName\x18\x01 \x01(\t\"&\n\x04\x46ile\x12\x0c\n\x04\x66ile\x18\x01 \x01(\x0c\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\"0\n\x0cResponseFile\x12\x10\n\x08\x66ileName\x18\x01 \x01(\t\x12\x0e\n\x06result\x18\x02 \x01(\t2\xb3\x01\n\x0b\x46ileTranfer\x12.\n\x0cUploadStream\x12\x0b.FileStream\x1a\r.ResponseFile\"\x00(\x01\x12/\n\x0e\x44ownloadStream\x12\x0c.RequestFile\x1a\x0b.FileStream\"\x00\x30\x01\x12 \n\x06Upload\x12\x05.File\x1a\r.ResponseFile\"\x00\x12!\n\x08\x44ownload\x12\x0c.RequestFile\x1a\x05.File\"\x00\x42\x0bZ\t./go_grpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x66ile_service.proto\"\x1b\n\x07Request\x12\x10\n\x08\x66ileName\x18\x01 \x01(\t\"&\n\x04\x46ile\x12\x0c\n\x04\x66ile\x18\x01 \x01(\x0c\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\",\n\x08Response\x12\x10\n\x08\x66ileName\x18\x01 \x01(\t\x12\x0e\n\x06result\x18\x02 \x01(\t2N\n\x0b\x46ileTranfer\x12\x1e\n\x06Upload\x12\x05.File\x1a\t.Response\"\x00(\x01\x12\x1f\n\x08\x44ownload\x12\x08.Request\x1a\x05.File\"\x00\x30\x01\x42\x0bZ\t./go_grpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,14 +21,12 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'file_service_pb2', _globals
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\t./go_grpc'
-  _globals['_FILESTREAM']._serialized_start=22
-  _globals['_FILESTREAM']._serialized_end=53
-  _globals['_REQUESTFILE']._serialized_start=55
-  _globals['_REQUESTFILE']._serialized_end=86
-  _globals['_FILE']._serialized_start=88
-  _globals['_FILE']._serialized_end=126
-  _globals['_RESPONSEFILE']._serialized_start=128
-  _globals['_RESPONSEFILE']._serialized_end=176
-  _globals['_FILETRANFER']._serialized_start=179
-  _globals['_FILETRANFER']._serialized_end=358
+  _globals['_REQUEST']._serialized_start=22
+  _globals['_REQUEST']._serialized_end=49
+  _globals['_FILE']._serialized_start=51
+  _globals['_FILE']._serialized_end=89
+  _globals['_RESPONSE']._serialized_start=91
+  _globals['_RESPONSE']._serialized_end=135
+  _globals['_FILETRANFER']._serialized_start=137
+  _globals['_FILETRANFER']._serialized_end=215
 # @@protoc_insertion_point(module_scope)
