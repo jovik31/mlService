@@ -41,3 +41,17 @@ Logistic Regression hyperparemeters:
   
 
 gridSearchCV -> Cross validation for hyperparameters
+
+
+
+Install requirements:
+
+  Golang
+  python
+  tensorflow
+  tensorflow-decision-forests
+  mongodb
+  postgresql
+  grpc
+  protobuf - dependant on tensorflow version
+  grpcio-protoc
