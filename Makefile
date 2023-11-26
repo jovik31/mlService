@@ -10,3 +10,15 @@ clean:
 	touch proto/python_grpc/__init__.py
 set-env:
 	export PYTHONPATH=~/Projects/pyProjects/mlService/
+
+
+start-db-service:
+
+
+stop-db-service:
+
+
+clean-db-service:
+
+
+
