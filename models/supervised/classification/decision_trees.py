@@ -1,4 +1,5 @@
 from typing import Optional
+import tensorflow_decision_forests as tfdf
 import tensorflow as tf
 
 from tensorflow_decision_forests.keras import core_inference
@@ -8,16 +9,16 @@ from tensorflow_decision_forests.keras import core
 print(tf.__version__)
 
 
-class Decision_tree:
+class Decision_tree(tfdf.keras.CartModel):
 
     def __init__(self, task: core_inference.Task.CLASSIFICATION,
                  features: Optional[list[core.FeatureUsage]] = None):
+        super().__init__()
 
 
 hyperparameters = {"task": core_inference.Task.CLASSIFICATION,
                    "features": core.FeatureUsage,
-                   "exclude_non_specified_featureside": False,
-                   ""}
+                   "exclude_non_specified_featureside": False}
 #              exclude_non_specified_features: ,
 #               preprocessing,
 #              postprocessing,
@@ -43,3 +44,7 @@ hyperparameters = {"task": core_inference.Task.CLASSIFICATION,
 #              honest,
 #              honest_fixed_separation,
 #             honest_ratio_leaf_examples}
+#
+#
+#
+model = Decision_tree()
