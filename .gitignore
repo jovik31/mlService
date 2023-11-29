@@ -1,5 +1,4 @@
 #ignore scripts folder
 
-/scripts
-
-
+/database/mongodb/internal
+/database/postgresql/internal
