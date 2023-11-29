@@ -11,8 +11,8 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - /home/jovik31/storage/mongodb:/data/db
-      - /home/jovik31/Projects/pyProjects/mlService/database/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./mongodb/internal:/data/db
+      - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
   posgresqlDB:
     image: postgres:latest
     container_name: postgredb
@@ -25,6 +25,6 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - /home/jovik31/storage/postgres:/var/lib/postgresql/data
-      - /home/jovik31/Projects/pyProjects/mlService/database/postgresql/init.sql:/docker-entrypoint-initdb/init.sql
+      - ./postgresql/internal:/var/lib/postgresql/data
+      - ./postgresql/init.sql:/docker-entrypoint-initdb/init.sql
 
