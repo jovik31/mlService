@@ -13,7 +13,10 @@ let res = [
   user.container.drop(),
   user.container.createIndex({ myfield: 1 }, { unique: true }),
   user.container.insert({ myfield: 'hello', thatfield: 'testing' }),
+
+
 ]
 
+console.log("Finished script")
 
 
