@@ -2,3 +2,5 @@
 
 /database/mongodb/internal
 /database/postgresql/internal
+/database/.env
+/database/postgresql/.env
