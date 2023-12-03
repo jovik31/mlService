@@ -14,6 +14,6 @@ def load_postgres_environment_variables():
     return dotenv_values(".env")
 
 
-config = load_postgres_environment_variables()
+config = loadd_postgres_environment_variables()
 
 print(config)
